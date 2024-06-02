@@ -1,0 +1,348 @@
+{
+  "[markdown]": {
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": false
+  },
+  "[php]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+  "diffEditor.maxComputationTime": 0, // change timeout if diff computation is slow
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.autoIndent": "full", // a code formatter extension like Prettier is required
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "never"
+  },
+  "editor.codeLens": false, // references can be opened with shift + alt + 12
+  "editor.cursorBlinking": "expand",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorSurroundingLines": 5,
+  "editor.cursorWidth": 1,
+  "editor.defaultFormatter": "esbenp.prettier-vscode", //prettier.io
+  "editor.detectIndentation": false, // force tabs as indentation
+  "editor.dragAndDrop": false,
+  "editor.find.autoFindInSelection": "never", //https://github.com/Microsoft/vscode/issues/58111
+  "editor.find.globalFindClipboard": true, // useful when searching for error fixing in web browsers
+  "editor.fontFamily": "'Fira Code'", // Menlo, OperatorMonoLig-Light (paid)
+  "editor.fontLigatures": true,
+  "editor.fontSize": 13, // 12 - 14
+  "editor.fontWeight": "300", // 300 - 600
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  // GotoLocation settings
+  // Guides settings
+  // "editor.guides.bracketPairs": true,
+  "editor.guides.highlightActiveIndentation": "always",
+  // Inlay Hints
+  "editor.insertSpaces": true, // cmd + period
+  "editor.lineHeight": 28,
+  "editor.matchBrackets": "near", // never for readability; code formatting (using Prettier) is enough
+  "editor.maxTokenizationLineLength": 20000, // true to read code easily
+  "editor.minimap.enabled": false,
+  "editor.minimap.maxColumn": 100,
+  "editor.minimap.showSlider": "always",
+  "editor.overviewRulerBorder": false,
+  "editor.parameterHints.cycle": true,
+  "editor.guides.indentation": false, // fullstackopen
+  "editor.renderLineHighlight": "none", //bugged feature
+  "editor.renderWhitespace": "none",
+  "editor.rulers": [], //80
+  "editor.scrollBeyondLastColumn": 10,
+  "editor.showFoldingControls": "always", // useful when reading the code
+  "editor.smoothScrolling": true,
+  // Suggestion Show setttings
+  "editor.suggest.snippetsPreventQuickSuggestions": true,
+  "editor.suggestFontSize": 11,
+  "editor.suggestLineHeight": 22,
+  "editor.tabSize": 2, //prettier.tabWidth: 2
+  "editor.tokenColorCustomizations": {},
+  "editor.trimAutoWhitespace": false, // keep indentation
+  "editor.useTabStops": true, // set Git to format tabs as needed when pushing
+  "editor.wordBasedSuggestions": "off",
+  "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",<>/?", // remove dash (for CSS classes) and period (for JS methods)
+  "editor.wordWrap": "off",
+  // Source Control
+  "scm.alwaysShowActions": true,
+  "scm.countBadge": "focused",
+  "scm.diffDecorationsGutterWidth": 1, //Night Owl
+  "workbench.editor.closeEmptyGroups": false,
+  "workbench.editor.enablePreview": true, // double-click to open file
+  "workbench.editor.openPositioning": "last",
+  "workbench.editor.revealIfOpen": true,
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.iconTheme": "vscode-icons", //eq-material-theme-icons
+  "workbench.list.defaultFindMode": "filter", //bugged feature https://github.com/microsoft/vscode/issues/117091
+  "workbench.productIconTheme": "Default", //fluent-icons
+  "workbench.settings.editor": "json",
+  "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
+  "workbench.tree.indent": 19,
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.view.alwaysShowHeaderActions": true,
+  // Window
+  "window.closeWhenEmpty": true,
+  "window.nativeTabs": false, // implicit workspaces
+  "window.newWindowDimensions": "inherit",
+  "window.openWithoutArgumentsInNewWindow": "off",
+  "window.restoreFullscreen": true,
+  "window.title": "${appName}",
+  // Files
+  "files.associations": {
+    "*.css": "scss" //https://ifelaw2439.medium.com/how-to-make-vscode-css-file-extension-understand-scss-code-using-files-association-b6d41c333d03
+  },
+  "files.autoSave": "onWindowChange",
+  "files.autoSaveDelay": 1001, // shows dirty circle indicator if more than 1000
+  "files.defaultLanguage": "javacript",
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    //  "**/node_modules": true,
+    "**/package-lock.json": true
+  },
+  "files.insertFinalNewline": true,
+  "files.simpleDialog.enable": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.hg/store/**": true
+  },
+  // Screencast Mode
+  // Zen Mode
+  // File Explorer
+  "explorer.compactFolders": false, // useful in Java projects
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.decorations.badges": false,
+  "explorer.incrementalNaming": "smart",
+  "explorer.openEditors.visible": 0,
+  // Search
+  "search.collapseResults": "alwaysExpand",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true
+  },
+  "search.globalFindClipboard": true,
+  "search.quickOpen.includeHistory": false,
+  "search.quickOpen.includeSymbols": false,
+  "search.searchOnType": true,
+  "search.showLineNumbers": true,
+  "search.smartCase": true,
+  "search.useGlobalIgnoreFiles": true,
+  // Keyboard
+  "keyboard.dispatch": "code", //https://github.com/microsoft/vscode/wiki/Keybinding-Issues
+  "keyboard.touchbar.ignored": [], //https://code.visualstudio.com/updates/v1_38#_hide-individual-macos-touch-bar-entries
+  // Debug
+  // "debug.allowBreakpointsEverywhere": false, // scripts in html documents
+  // "debug.console.fontSize": 12,
+  // "debug.console.lineHeight": 0,
+  // "debug.internalConsoleOptions": "openOnSessionStart", // ideally debug console should only open if there's an error
+  // "debug.onTaskErrors": "showErrors",
+  // "debug.openDebug": "openOnSessionStart",
+  // "debug.openExplorerOnEnd": false,
+  // "debug.showBreakpointsInOverviewRuler": true,
+  // "debug.showInStatusBar": "always",
+  // "debug.showSubSessionsInToolBar": true,
+  "debug.toolBarLocation": "docked",
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  }, // lauch.json
+  // HTML
+  "html.autoClosingTags": true,
+  "html.format.extraLiners": "",
+  "html.format.indentInnerHtml": true,
+  "html.format.preserveNewLines": false,
+  "html.format.wrapLineLength": 0, // text should be wrap by editor visualization tools (alt + Z ), not formatters
+  //JSON
+  "json.schemas": [],
+  //Markdown
+  "markdown.preview.fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif", //MuseoSans-300
+  "markdown.styles": [], // https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles
+  "markdown-preview-github-styles.colorTheme": "light",
+  //PHP
+  "php.validate.run": "onType",
+
+  // Javascript
+  "javascript.format.enable": false, // prettier is used instead
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": false, // for readability
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true, // fullstackopen
+  "javascript.format.semicolons": "remove", // remove for fullstackopen; better to insert semicolons to avoid code from breaking; eg: return
+  "js/ts.implicitProjectConfig.checkJs": false, // https://stackoverflow.com/questions/64656055/react-refers-to-a-umd-global-but-the-current-file-is-a-module
+  "js/ts.implicitProjectConfig.experimentalDecorators": true,
+  "javascript.preferences.quoteStyle": "single", // imports; jsconfig.json is required; autoimports need to be set to true
+  "javascript.referencesCodeLens.enabled": true,
+  "javascript.suggest.autoImports": true, // jsconfig
+  "javascript.suggest.completeFunctionCalls": true, // useful in JS files; not useful in React files; set depending on project
+  "javascript.suggest.names": true, // false (strings are not useful; eg: log)
+  "javascript.updateImportsOnFileMove.enabled": "always", // jsconfig.json is required
+
+  // TypeScript
+  "typescript.format.enable": false, // fullstackopen
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false, // fullstackopen
+  "typescript.format.semicolons": "remove", // remove for fullstackopen; better to insert semicolons to avoid code from breaking;
+  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.preferences.quoteStyle": "single", // imports; jsconfig.json is required; autoimports need to be set to true
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.suggest.autoImports": true, // jsconfig
+  "typescript.suggest.completeFunctionCalls": false, // useful in JS files; not useful in React files; set depending on project
+  "typescript.updateImportsOnFileMove.enabled": "always", // jsconfig.json is required
+  // Testing
+  // CSS
+  "css.completion.completePropertyWithSemicolon": true, // cmd + enter to move to the next line
+  "css.lint.argumentsInColorFunction": "error", //https://www.w3.org/TR/css-color-5/#funcdef-color
+  "css.lint.boxModel": "warning",
+  "css.lint.compatibleVendorPrefixes": "error",
+  "css.lint.duplicateProperties": "warning",
+  "css.lint.fontFaceProperties": "error",
+  "css.lint.hexColorLength": "ignore", //https://github.com/microsoft/vscode/issues/81808
+  "css.lint.idSelector": "warning",
+  "css.lint.ieHack": "error",
+  "css.lint.important": "warning",
+  "css.lint.importStatement": "ignore", // during development it's OK
+  "css.lint.unknownAtRules": "error",
+  "css.lint.unknownProperties": "error",
+  "css.lint.unknownVendorSpecificProperties": "error",
+  "css.lint.vendorPrefix": "error",
+  "css.lint.zeroUnits": "warning",
+  // LESS
+  "less.lint.argumentsInColorFunction": "error", //https://www.w3.org/TR/less-color-5/#funcdef-color
+  "less.lint.boxModel": "warning",
+  "less.lint.compatibleVendorPrefixes": "error",
+  "less.lint.duplicateProperties": "warning",
+  "less.lint.fontFaceProperties": "error",
+  "less.lint.hexColorLength": "ignore", //https://github.com/microsoft/vscode/issues/81808
+  "less.lint.idSelector": "warning",
+  "less.lint.ieHack": "error",
+  "less.lint.important": "warning",
+  "less.lint.importStatement": "ignore", // during development it's OK
+  "less.lint.unknownAtRules": "error",
+  "less.lint.unknownProperties": "error",
+  "less.lint.unknownVendorSpecificProperties": "error",
+  "less.lint.vendorPrefix": "error",
+  "less.lint.zeroUnits": "warning",
+  // SCSS (Sass)
+  "scss.lint.argumentsInColorFunction": "error", //https://www.w3.org/TR/css-color-5/#funcdef-color
+  "scss.lint.boxModel": "warning",
+  "scss.lint.compatibleVendorPrefixes": "error",
+  "scss.lint.duplicateProperties": "warning",
+  "scss.lint.fontFaceProperties": "error",
+  "scss.lint.hexColorLength": "ignore", //https://github.com/microsoft/vscode/issues/81808
+  "scss.lint.idSelector": "warning",
+  "scss.lint.ieHack": "error",
+  "scss.lint.important": "warning",
+  "scss.lint.importStatement": "ignore", // during development it's OK
+  "scss.lint.unknownAtRules": "error",
+  "scss.lint.unknownProperties": "error",
+  "scss.lint.unknownVendorSpecificProperties": "error",
+  "scss.lint.vendorPrefix": "error",
+  "scss.lint.zeroUnits": "warning",
+  // Extensions
+  "extensions.closeExtensionDetailsOnViewChange": false, // exploring extension docs
+  // Settings Sync
+  // Notebooks
+  // Terminal
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.drawBoldTextInBrightColors": true,
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.lineHeight": 1,
+  "terminal.integrated.macOptionIsMeta": true,
+  // Tasks
+  "task.problemMatchers.neverPrompt": true,
+  "task.quickOpen.history": 1,
+  "task.quickOpen.skip": false,
+  // Problems
+  "problems.autoReveal": true, //https://github.com/microsoft/vscode/issues/13953
+  // Breadcrumb Navigation
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.icons": false,
+  "breadcrumbs.symbolPath": "off", // shift + cmd + O
+  // Outline
+  // Timeline
+  // Audio Cues
+  // Remote
+  // Emmet
+  "emmet.excludeLanguages": ["markdown"], //https://code.visualstudio.com/docs/editor/emmet#_using-custom-emmet-snippets
+  "emmet.extensionsPath": [],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "emmet.preferences": {}, //https://docs.emmet.io/customization/preferences/
+  "emmet.syntaxProfiles": {}, // https://docs.emmet.io/customization/syntax-profiles/#create-your-own-profile
+  "emmet.variables": {},
+  // GIT
+  "git.allowForcePush": false, // force push should only be used for rebasing or ammending a commit
+  "git.alwaysShowStagedChangesResourceGroup": true,
+  "git.alwaysSignOff": false, // create GPG private key; useful for big companies
+  "git.autofetch": true, // use credential helper to avoid password prompt
+  "git.autoStash": true, // be careful to manage possible conflicts
+  "git.branchValidationRegex": "", // useful for big companies
+  "git.confirmSync": false,
+  "git.defaultCloneDirectory": "/Users/alffonti/Repos",
+  "git.enableCommitSigning": false, // GPG private key; useful when working on a team
+  "git.enableSmartCommit": false, // not useful when working on two or more features at the same time
+  "git.fetchOnPull": true,
+  "git.ignoredRepositories": [],
+  "git.inputValidation": true,
+  "git.inputValidationLength": 72, // commit description
+  "git.inputValidationSubjectLength": 50, // commit subject
+  "git.postCommitCommand": "none", // only works if there is already a remote repo
+  "git.scanRepositories": [],
+  "git.smartCommitChanges": "all", // "enableSmartCommit": false
+  "git.suggestSmartCommit": true,
+  "git.untrackedChanges": "separate",
+  // Merge Conflict
+  "merge-conflict.diffViewPosition": "Current",
+  // JavaScript Debugger
+  // Npm
+  "npm.packageManager": "npm",
+  // Prettier
+  "prettier.bracketSameLine": false,
+  "prettier.htmlWhitespaceSensitivity": "css", // ignore
+  "prettier.jsxSingleQuote": false, // true
+  "prettier.printWidth": 800, // big number to avoid wrapping lines
+  "prettier.proseWrap": "preserve", // never
+  "prettier.tabWidth": 2, //editor.tabSize: 2
+  "prettier.useTabs": false, //fullstackopen
+  "prettier.bracketSpacing": true, // fullstackopen
+  "prettier.semi": false, // fullstackopen
+  "prettier.singleQuote": true, // fullstackopen
+  "prettier.arrowParens": "avoid",
+  // Intelephense
+  "intelephense.stubs": ["apache", "bcmath", "bz2", "calendar", "com_dotnet", "Core", "ctype", "curl", "date", "dba", "dom", "enchant", "exif", "FFI", "fileinfo", "filter", "fpm", "ftp", "gd", "gettext", "gmp", "hash", "iconv", "imap", "intl", "json", "ldap", "libxml", "mbstring", "meta", "mysqli", "oci8", "odbc", "openssl", "pcntl", "pcre", "PDO", "pdo_ibm", "pdo_mysql", "pdo_pgsql", "pdo_sqlite", "pgsql", "Phar", "posix", "pspell", "random", "readline", "Reflection", "session", "shmop", "SimpleXML", "snmp", "soap", "sockets", "sodium", "SPL", "sqlite3", "standard", "superglobals", "sysvmsg", "sysvsem", "sysvshm", "tidy", "tokenizer", "xml", "xmlreader", "xmlrpc", "xmlwriter", "xsl", "Zend OPcache", "zip", "zlib", "wordpress"],
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": false,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "terminal.integrated.env.osx": {},
+  "liveServer.settings.donotVerifyTags": true,
+  "console-ninja.featureSet": "Community",
+  "vsicons.dontShowNewVersionMessage": true,
+  "window.zoomLevel": -1,
+  "workbench.colorTheme": "Cobalt2",
+  "extensions.ignoreRecommendations": true
+}
+// More Extensions settings
+//   "liveServer.settings.donotShowInfoMsg": true,
+//   "liveServer.settings.donotVerifyTags": true
+//   "liveSassCompile.settings.formats": [
+//     {
+//       "format": "compressed",
+//       "extensionName": ".css",
+//       "savePath": "/assets/css"
+//     }
+//   ],
