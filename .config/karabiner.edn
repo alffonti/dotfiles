@@ -1,0 +1,194 @@
+{
+ :simlayer-threshold 500
+
+ :profiles {
+            :Default {
+                      :default true
+                      :alone 300 ;; to_if_alone_timeout_milliseconds (def: 1000) ;; hold for 995s and single tap registered; hold for 1005s and seen as modifier
+                      :held 300  ;; to_if_held_down_threshold_milliseconds (def: 500);; key is fired twice when 500 ms is elapsed (otherwise seen as a hold command)
+                      :delay 300 ;; basically it means time after which the key press is count delayed
+                      :sim 50 ;; keys need to be pressed within this threshold to be considered simultaneous
+                      }
+            }
+
+ :simlayers {
+             :s-mode {:key :s}    ; delimeters    ( ) [ ] { } and other symbols ~ $ &
+             :d-mode {:key :d}    ; arithmetic    + - * / = % < > #s
+             :f-mode {:key :f}    ; punctuation   ? ! : ; ' " ` ~
+             :a-mode {:key :a}    ; navigation hjkl + tab + enter + page down/up
+             ;
+             :q-mode {:key :q}    ; General shortcuts (browser etc.) - not settled
+             :w-mode {:key :w}    ; Selection left and right (letter, word, line)
+             :e-mode {:key :e}    ; Movement left and right (letter, word, line)
+             :r-mode {:key :r}    ; Deletion left and right (letter, word, line)
+             ;
+             :g-mode {:key :v}    ; Mouse scroll, desktop left-right, zoom in-out, screenshot (not implemented)
+             ;
+             :v-mode {:key :g}    ; Number pad with + - BS ENTER as well
+             :c-mode {:key :c}    ; Slashes and lines  ^ | \ _ @
+             :x-mode {:key :x}    ; Some multi-character shortcuts like <= (not implemented)
+
+             :semi {:key :x}    ; Some multi-character shortcuts like <= (not implemented)
+             }
+
+ :main [{:des "CAPSLOCK is CTRL if pressed in combination, otherwise ESC"
+         :rules  [[:##caps_lock        :left_control     nil         {:alone :escape}]]}
+
+
+       #_{:des "SPACEBAR is LEFT SHIFT if pressed in combination, otherwise SPACEBAR"
+         :rules  [[:##spacebar :left_shift nil {:alone :spacebar}]]}
+
+        {:des   "press j and l simultaneously to ENTER"
+         :rules [[[:j :k] :return_or_enter]]}
+
+        {:des "QUOTE is right control"
+         :rules  [[:##quote :right_control nil {:alone ["tilde-layer" 1]}]]}
+
+        {:des "Swap COMMAND + TAB with CONTROL + TAB"
+         :rules  [[:!Ctab :!Ttab nil]]}
+
+        {:des   "Swap SEMICOLON with COLON"
+         :rules [[:semicolon :left_option nil {:alone :!Ssemicolon}]
+                 [:!Ssemicolon :semicolon]
+                 [:!Ssemicolon :semicolon]]}
+
+        {:des "s-mode for delimeters and ! ? $"
+         :rules [:s-mode
+                 ;; u i j k m comma -> !Sopen_bracket !Sclose_bracket !S9 !S0 open_bracket close_bracket
+                 [:##u :!Sopen_bracket]
+                 [:##i :!Sclose_bracket]
+                 [:##j :!S9]
+                 [:##k :!S0]
+                 [:##m :open_bracket]
+                 [:##comma :close_bracket]
+
+                 [:##o :!Sclose_bracket]
+                 [:##l :!S0]
+                 [:##period :close_bracket]]}
+
+        #_{:des "d-mode for arithmetic"    ;;    < > #    + - =    * / %
+         :rules [:d-mode
+                 [:##u     :!Scomma]               ; d -> o        <
+                 [:##i     :!Speriod]               ; d -> p        >
+                 [:##o     :!Speriod]               ; d -> o        #
+
+                 [:##j         :!Sequal_sign]      ; d -> j        +
+                 [:##k         :hyphen]            ; d -> k        -
+                 [:##l         :equal_sign]        ; d -> l        =
+
+                 [:##m :!S8]                       ; d -> m        *
+                 [:##comma :slash]                 ; d -> ,        /
+                 [:##period :!S5]                  ; d -> .        %
+
+                 [:##n :!S3]  ; for vim
+                 ]}
+
+        {:des "f-mode for punctuation"   ;;    ' " `    , . &    ; : ~
+         :rules [:f-mode
+                 [:##u :quote]
+                 [:##i :!Squote]
+                 [:##o :grave_accent_and_tilde]
+                 [:##p :!Sgrave_accent_and_tilde]
+                 [:##j :comma]
+                 [:##k :period]
+                 [:##m :!S1]
+                 [:##comma :!Sslash]
+                 [:##period :!S1]
+                 ]}
+
+        {:des "a-mode for hjkl movement and nm enter and ui tab and ,. PageDn/Up"
+         :rules [:a-mode
+                 [:##h :left_arrow]
+                 [:##j :down_arrow]
+                 [:##k :up_arrow]
+                 [:##l :right_arrow]
+                 [:##u :!Stab]
+                 [:##i :tab]
+                 [:##y :home]
+                 [:##m :page_down]
+                 [:##comma :page_up]
+                 [:##o :end]]}
+
+        {:des "r-mode for deleting characters with ui, words with jk and lines with hl"
+         :rules [:r-mode
+                 [:##u :delete_or_backspace]   ; r -> j   Delete character backwards
+                 [:##i :delete_forward]        ; r -> j   Delete character forwards
+                 [:##j :!Odelete_or_backspace] ; r -> j   Delete word backwards
+                 [:##k :!Odelete_forward]      ; r -> k   Delete word forwards
+                 [:##h :!Cdelete_or_backspace] ; r -> h   Delete to beginning of line
+                 [:##l :!Cdelete_forward]      ; r -> l   Delete to end of line
+                 ]}
+
+        {:des "e-mode allows for easy back and forth one character, word or line"
+         :rules [:e-mode
+                 [:##y         :!Ta]          ; e -> u    Move to the beginning of the line or paragraph
+                 [:##u         :left_arrow]          ; e -> u    Left
+                 [:##i         :right_arrow]         ; e -> i    Right
+                 [:##j         :!Oleft_arrow]        ; e -> j    Opt+Left
+                 [:##k         :!Oright_arrow]       ; e -> k    Opt+Right
+                 [:##h         :!Cleft_arrow]        ; e -> h    Cmd+Left
+                 [:##l         :!Cright_arrow]       ; e -> l    Cmd+Right
+                 [:##m         :!Cdown_arrow]       ; e -> l    Cmd+Down
+                 [:##comma        :!Cup_arrow]        ; e -> h    Cmd+Up
+                 ]}
+
+        {:des "q-mode for general shortcuts like browser tab navigation"
+         :rules [:q-mode
+                 [:##j :!CSopen_bracket]  ; q -> j    tab to the left:  Cmd-{
+                 [:##k :!CSclose_bracket] ; q -> k    tab to the right: Cmd-}
+                 [:##l :!TCf]  ; q -> l    toggle full screen: ^⌘F
+                 [:##u :!Cclose_bracket]  ; q -> u    browser back:     Cmd-[
+                 [:##i :!Cclose_bracket]  ; q -> i    browser forward:  Cmd-]
+                 ]}
+
+        {:des "g-mode for number pad"
+         :rules [:v-mode
+                 [:u :7]
+                 [:i :8]
+                 [:o :9]
+                 [:j :4]
+                 [:k :5]
+                 [:l :6]
+                 [:m :1]
+                 [:comma :2]
+                 [:period :3]
+                 [:p :!Sequal_sign]
+                 [:semicolon :hyphen]
+                 [:slash :return_or_enter]
+                 [:y :delete_or_backspace]
+                 [:h :period]
+                 [:n :0]]}
+
+        {:des "c-mode for remaining symbols # ^ $ _ @ & / |"
+         :rules [:c-mode
+                 [:##u :!S3]
+                 [:##i :!S6]
+                 [:##j :!S4]
+                 [:##k :!Shyphen]
+                 [:##l :!S2]
+                 [:##m :!S7]
+                 [:##comma :backslash]
+                 [:##period :!Sbackslash]
+
+                 [:##h :0]  ; for vim
+                 ]}
+
+
+        #_{:des "x-mode for some programming pairs like <= (not yet implemented)"
+           :rules [:x-mode]}
+
+        #_{:des "g-mode for mouse scroll, desktop left-right, zoom in-out, screenshot"
+           :rules [:g-mode]}
+
+        {:des "Forward slash is an easier right-shift (if combined)"
+         :rules  [[:slash        :left_shift     nil         {:alone :slash}]]}
+
+        ;; Using keys for CTRL etc (home-row-mods) isn't practical with plain Karabiner.
+        ;; Some changes to timeout settings would be required, and the documentation is
+        ;; not clear enough.
+        #_{:des "Convenient CTRL (T,Y) and COMMAND (G,H)"
+           :rules  [[:##t        :left_control     nil         {:alone :t}]
+                    [:##y        :left_control     nil         {:alone :y}]
+                    [:##g        :left_command     nil         {:alone :g}]
+                    [:##h        :left_command     nil         {:alone :h}]]}]
+}
