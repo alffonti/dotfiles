@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# Helper function to write defaults
+defaults_write() {
+    local domain="$1"
+    local key="$2"
+    local type="$3"
+    local value="$4"
+    defaults write "$domain" "$key" "-$type" "$value"
+}
+
+# Function to disable features
+disable_features() {
+    echo "Disabling unnecessary features..."
+    local keys=(
+        "NSDocumentSaveNewDocumentsToCloud"
+        "NSAutomaticCapitalizationEnabled"
+        "NSAutomaticPeriodSubstitutionEnabled"
+        "NSAutomaticDashSubstitutionEnabled"
+        "NSAutomaticQuoteSubstitutionEnabled"
+        "NSAutomaticSpellingCorrectionEnabled"
+        "NSAutomaticTextCompletionEnabled"
+        "NSAutomaticWindowAnimationsEnabled"
+        "ApplePressAndHoldEnabled"
+        "AppleEnableSwipeNavigateWithScrolls"
+        "NSCloseAlwaysConfirmsChanges"
+        "NSUseAnimatedFocusRing"
+        "NSScrollAnimationEnabled"
+        "NSTextShowsControlCharacters"
+        "NSQuitAlwaysKeepsWindows"
+        "NSDisableAutomaticTermination"
+        "com.apple.trackpad.forceClick"
+    )
+
+    for key in "${keys[@]}"; do
+        defaults_write NSGlobalDomain "$key" bool false
+    done
+
+    echo "Disabled unnecessary features."
+}
+
+# Function to enable features
+enable_features() {
+    echo "Enabling necessary features..."
+    local keys=(
+        "com.apple.springing.enabled"
+        "AppleShowAllExtensions"
+        "NSNavPanelExpandedStateForSaveMode"
+        "NSNavPanelExpandedStateForSaveMode2"
+    )
+
+    for key in "${keys[@]}"; do
+        defaults_write NSGlobalDomain "$key" bool true
+    done
+    echo "Enabled necessary features."
+}
+
+# Function to set float values
+set_float_values() {
+    echo "Setting float values..."
+    local float_values=(
+        "com.apple.springing.delay:0.0"
+        "NSGlobalDomain.NSToolbarTitleViewRolloverDelay:0.0"
+        "NSGlobalDomain.NSWindowResizeTime:0.001"
+    )
+
+    for item in "${float_values[@]}"; do
+        IFS=":" read -r key value <<< "$item"
+        domain="${key%.*}"
+        key_name="${key##*.}"
+        defaults_write "$domain" "$key_name" float "$value"
+    done
+
+    echo "Float values set."
+}
+
+# Function to set text values
+set_text_values() {
+    echo "Setting text values..."
+    local text_values=(
+        "NSGlobalDomain.AppleInterfaceStyle:Dark"
+        "NSGlobalDomain.AppleShowScrollBars:Always"
+    )
+
+    for item in "${text_values[@]}"; do
+        IFS=":" read -r key value <<< "$item"
+        domain="${key%.*}"
+        key_name="${key##*.}"
+        defaults_write "$domain" "$key_name" string "$value"
+    done
+
+    echo "Text values set."
+}
+
+# Main script logic
+case "$1" in
+    disable)
+        disable_features
+        ;;
+    enable)
+        enable_features
+        ;;
+    float)
+        set_float_values
+        ;;
+    text)
+        set_text_values
+        ;;
+    *)
+        echo "Usage: $0 {disable|enable|float|text}"
+        exit 1
+        ;;
+esac
+
+# Apply changes
+killall Dock Finder SystemUIServer
+
+echo "All changes applied successfully."
