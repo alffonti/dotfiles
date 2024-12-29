@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Function to configure Dock settings
+configure_dock() {
+    echo "Configuring Dock settings..."
+
+    # Clear persistent apps and others
+    defaults write com.apple.dock persistent-apps -array
+    defaults write com.apple.dock persistent-others -array
+
+    # Set Dock preferences
+    defaults write com.apple.dock show-recents -bool false
+    defaults write com.apple.dock show-process-indicators -bool false
+    defaults write com.apple.dock static-only -bool true
+    defaults write com.apple.dock tilesize -int 16
+    defaults write com.apple.dock mineffect -string "scale"
+    defaults write com.apple.dock "orientation" -string "left"
+    defaults write com.apple.dock expose-animation-duration -float 0.1
+    defaults write com.apple.dock mru-spaces -bool false
+    defaults write com.apple.dock launchanim -bool false
+    defaults write com.apple.dock expose-group-by-app -bool false
+    defaults write com.apple.dock dashboard-in-overlay -bool true
+    defaults write com.apple.dock autohide -bool false
+    defaults write com.apple.dock autohide-delay -float 0
+    defaults write com.apple.dock autohide-time-modifier -float 0
+    defaults write com.apple.dock showAppExposeGestureEnabled -bool false
+    defaults write com.apple.dock showMissionControlGesturesEnabled -bool false
+    defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool false
+    defaults write com.apple.dock mcx-expose-disabled -boolean true
+    defaults write com.apple.dock no-bouncing -bool true
+    defaults write com.apple.dock show-exposemenus -boolean false
+    defaults write com.apple.dock no-glass -boolean true
+
+    echo "Dock settings configured."
+
+    # Restart Dock to apply changes
+    killall Dock
+}
+
+# Run the Dock configuration function
+configure_dock
+
+echo "Dock configuration script executed successfully."
