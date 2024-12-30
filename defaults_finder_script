@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Function to disable Finder features
-disable_finder_features() {
-    echo "Disabling Finder features..."
+configure_finder() {
+    echo "Configuring Finder settings..."
+
     defaults write com.apple.finder CreateDesktop -bool false
     defaults write com.apple.finder ShowRecentTags -bool false
     defaults write com.apple.finder WarnOnEmptyTrash -bool false
@@ -11,12 +12,7 @@ disable_finder_features() {
     defaults write com.apple.finder "ShowRemovableMediaOnDesktop" -bool false
     defaults write com.apple.finder "ShowMountedServersOnDesktop" -bool false
     defaults write com.apple.finder UseStacks -bool false
-    echo "Finder features disabled."
-}
 
-# Function to enable Finder features
-enable_finder_features() {
-    echo "Enabling Finder features..."
     defaults write com.apple.finder "QuitMenuItem" -bool true
     defaults write com.apple.finder "AppleShowAllFiles" -bool true
     defaults write com.apple.finder "_FXSortFoldersFirst" -bool true
@@ -28,43 +24,19 @@ enable_finder_features() {
     defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
     defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
     defaults write com.apple.finder QLEnableTextSelection -bool true
-    echo "Finder features enabled."
-}
 
-# Function to set Finder string preferences
-set_finder_strings() {
-    echo "Setting Finder string preferences..."
     defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
     defaults write com.apple.finder NewWindowTarget -string "PfLo"
     defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
     defaults write com.apple.finder "FXDefaultSearchScope" -string "SCcf"
-    echo "Finder string preferences set."
-}
+    
+    echo "Dock settings configured."
 
-# Function to restart Finder
-restart_finder() {
-    echo "Restarting Finder to apply changes..."
+    # Restart Finder to apply changes
     killall Finder
-    echo "Finder restarted."
 }
 
-# Main script logic
-case "$1" in
-    disable)
-        disable_finder_features
-        ;;
-    enable)
-        enable_finder_features
-        ;;
-    strings)
-        set_finder_strings
-        ;;
-    *)
-        echo "Usage: $0 {disable|enable|strings}"
-        exit 1
-        ;;
-esac
-
-restart_finder
+# Run the Finder configuration function
+configure_finger
 
 echo "Finder configuration script executed successfully."
