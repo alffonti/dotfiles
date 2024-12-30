@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Function to disable trackpad gestures
-disable_trackpad_features() {
+configure_trackpad() {
     echo "Disabling trackpad gestures..."
+
     defaults write com.apple.AppleMultitouchTrackpad TrackpadMomentumScroll -bool false
     defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch -bool false
     defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate -bool false
@@ -20,38 +21,18 @@ disable_trackpad_features() {
     defaults write com.apple.AppleMultitouchTrackpad ActuateDetents -bool false
     defaults write com.apple.AppleMultitouchTrackpad TrackpadHorizScroll -bool false
     defaults write com.apple.AppleMultitouchTrackpad USBMouseStopsTrackpad -bool false
-    echo "Trackpad gestures disabled."
-}
 
-# Function to enable trackpad features
-enable_trackpad_features() {
-    echo "Enabling essential trackpad features..."
     defaults write com.apple.AppleMultitouchTrackpad TrackpadScroll -bool true
     defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-    echo "Essential trackpad features enabled."
-}
 
-# Function to restart System Preferences
-done_applying() {
-    echo "Restarting System Preferences to apply changes..."
+    echo "Trackpad gestures disabled."
+
+    # Restart Trackpad to apply changes
     killall "System Preferences" 2>/dev/null
-    echo "System Preferences restarted."
 }
 
-# Main script logic
-case "$1" in
-    disable)
-        disable_trackpad_features
-        ;;
-    enable)
-        enable_trackpad_features
-        ;;
-    *)
-        echo "Usage: $0 {disable|enable}"
-        exit 1
-        ;;
-esac
 
-done_applying
+# Run the Trackpad configuration function
+configure_trackpad
 
 echo "Trackpad configuration script executed successfully."
