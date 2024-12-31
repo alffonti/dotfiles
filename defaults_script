@@ -100,7 +100,7 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # all wallpapers are in `/Library/Desktop Pictures/`.
-defaults write com.apple.wallpaper SystemWallpaperURL -string "file:////System/Library/Desktop Pictures/Solid Colors/Black.png"
+osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
 
 # Function to disable features
 disable_features() {
