@@ -178,3 +178,39 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 ##################
 # Energy saving    
 ##################
+
+# Wake the Mac from sleep whenever the laptop lid is opened
+sudo pmset -a lidwake 1
+
+# Restart automatically on power loss
+sudo pmset -a autorestart 1
+
+# Force the system to restart if it becomes unresponsive
+sudo systemsetup -setrestartfreeze on
+
+# Turn off the display after 15 minutes of inactivity
+sudo pmset -a displaysleep 15
+
+# Prevent the computer from entering sleep mode while connected to power
+sudo pmset -c sleep 0
+
+# Put the computer to sleep after 5 minutes of inactivity when running on battery
+sudo pmset -b sleep 5
+
+# Improve wake time during active periods (e.g., within a workday).
+sudo pmset -a standbydelay 86400
+
+# Ensure the system is always available
+sudo systemsetup -setcomputersleep Off > /dev/null
+
+# Hibernation mode
+# 0: Disable hibernation, keeping the system state only in RAM for faster sleep and wake
+# 3: Copy RAM content to disk, ensuring the system state can be restored after a power failure
+sudo pmset -a hibernatemode 0
+
+# Remove and replace the sleep image file to save disk space
+sudo rm /private/var/vm/sleepimage
+# Create a zero-byte file instead…
+sudo touch /private/var/vm/sleepimage
+# …and make sure it can’t be rewritten
+sudo chflags uchg /private/var/vm/sleepimage
