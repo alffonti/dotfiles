@@ -101,7 +101,7 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "Europe/Brussels" > /dev/null
+# sudo systemsetup -settimezone "Europe/Paris" > /dev/null
 
 # Disable automatic capitalization, dashes, period, quotes, auto-correct, and text completion
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -214,3 +214,29 @@ sudo rm /private/var/vm/sleepimage
 sudo touch /private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
 sudo chflags uchg /private/var/vm/sleepimage
+
+###############################################################################
+# Screen                                                                      #
+###############################################################################
+
+# Require password immediately after sleep
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+# Save screenshots to the custom directory
+defaults write com.apple.screencapture location -string "~/Screenshots"
+
+# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+defaults write com.apple.screencapture type -string "png"
+
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
+
+# Hide thumbnail preview after taking screenshots
+defaults write com.apple.screencapture show-thumbnail -bool false
+
+# Disable the shutter sound when taking screenshots
+defaults write com.apple.screencapture disable-sound -bool true
+
+# Exclude the date from the screenshot filename 
+defaults write com.apple.screencapture include-date -bool "false" 
