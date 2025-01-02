@@ -13,6 +13,7 @@ while true; do sudo -v; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX  
 ##################
 
+# Set computer name
 #sudo scutil --set ComputerName "m19"
 #sudo scutil --set HostName "m19"
 #sudo scutil --set LocalHostName "m19"
@@ -23,6 +24,9 @@ sudo nvram SystemAudioVolume=" "
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
 defaults write com.apple.universalaccess reduceTransparency -bool true
+
+# Set the macOS interface style to Dark Mode
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
 # Set highlight color to green
 # defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
@@ -37,11 +41,27 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # Adjust toolbar title rollover delay
 defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
 
-# Disable smooth scrolling (if you’re on an older Mac that messes up the animation)
+# Disable smooth scrolling
 defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
 # Increase window resize speed
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# Disable window animations globally
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+# Disable animated focus rings around controls
+defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
+
+# Enable spring-loading for directories (folders open automatically when hovered over)
+defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+defaults write NSGlobalDomain com.apple.springing.delay -float 0.0
+
+# Save to disk (not to iCloud) by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# Disable confirmation prompts when closing unsaved documents
+defaults write NSGlobalDomain NSCloseAlwaysConfirmsChanges -bool false
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -51,9 +71,6 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-# Save to disk (not to iCloud) by default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
@@ -62,7 +79,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Display ASCII control characters using caret notation in standard text views
 # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
-defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
+# defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 
 # Disable Resume system-wide
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
@@ -83,129 +100,91 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Disable Notification Center and remove the menu bar icon
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
-# Disable automatic capitalization as it’s annoying when typing code
+# Set the timezone; see `sudo systemsetup -listtimezones` for other values
+sudo systemsetup -settimezone "Europe/Brussels" > /dev/null
+
+# Disable automatic capitalization, dashes, period, quotes, auto-correct, and text completion
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
-
-# Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
-
-# Disable automatic period substitution as it’s annoying when typing code
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
-
-# Disable smart quotes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-
-# Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool false
 
 # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # all wallpapers are in `/Library/Desktop Pictures/`.
 osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
 
-# Function to disable features
-disable_features() {
-    echo "Disabling unnecessary features..."
-    local keys=(
-        "NSDocumentSaveNewDocumentsToCloud"
-        "NSAutomaticCapitalizationEnabled"
-        "NSAutomaticPeriodSubstitutionEnabled"
-        "NSAutomaticDashSubstitutionEnabled"
-        "NSAutomaticQuoteSubstitutionEnabled"
-        "NSAutomaticSpellingCorrectionEnabled"
-        "NSAutomaticTextCompletionEnabled"
-        "NSAutomaticWindowAnimationsEnabled"
-        "ApplePressAndHoldEnabled"
-        "AppleEnableSwipeNavigateWithScrolls"
-        "NSCloseAlwaysConfirmsChanges"
-        "NSUseAnimatedFocusRing"
-        "NSScrollAnimationEnabled"
-        "NSTextShowsControlCharacters"
-        "NSQuitAlwaysKeepsWindows"
-        "NSDisableAutomaticTermination"
-        "com.apple.trackpad.forceClick"
-    )
+##################
+# Input devices               
+##################
 
-    for key in "${keys[@]}"; do
-        defaults_write NSGlobalDomain "$key" bool false
-    done
+# Enable tap to click
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 
-    echo "Disabled unnecessary features."
-}
+# Disable the haptic feedback detents (force click/trackpad resistance)
+defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool false
+defaults write com.apple.AppleMultitouchTrackpad ActuateDetents -bool false
 
-# Function to enable features
-enable_features() {
-    echo "Enabling necessary features..."
-    local keys=(
-        "com.apple.springing.enabled"
-        "AppleShowAllExtensions"
-        "NSNavPanelExpandedStateForSaveMode"
-        "NSNavPanelExpandedStateForSaveMode2"
-    )
+# Disable trackpad gestures (https://support.apple.com/en-us/102482)
+defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFiveFingerPinchGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerPinchGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -bool false
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool false
 
-    for key in "${keys[@]}"; do
-        defaults_write NSGlobalDomain "$key" bool true
-    done
-    echo "Enabled necessary features."
-}
+# Adjust trackpad scrolling behaviour
+defaults write com.apple.AppleMultitouchTrackpad TrackpadScroll -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadMomentumScroll -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadHorizScroll -bool false
 
-# Function to set float values
-set_float_values() {
-    echo "Setting float values..."
-    local float_values=(
-        "com.apple.springing.delay:0.0"
-        "NSGlobalDomain.NSToolbarTitleViewRolloverDelay:0.0"
-        "NSGlobalDomain.NSWindowResizeTime:0.001"
-    )
+# Disable “natural” scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
-    for item in "${float_values[@]}"; do
-        IFS=":" read -r key value <<< "$item"
-        domain="${key%.*}"
-        key_name="${key##*.}"
-        defaults_write "$domain" "$key_name" float "$value"
-    done
+# Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-    echo "Float values set."
-}
+# Disable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-# Function to set text values
-set_text_values() {
-    echo "Setting text values..."
-    local text_values=(
-        "NSGlobalDomain.AppleInterfaceStyle:Dark"
-        "NSGlobalDomain.AppleShowScrollBars:Always"
-    )
+# Set a fast keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
-    for item in "${text_values[@]}"; do
-        IFS=":" read -r key value <<< "$item"
-        domain="${key%.*}"
-        key_name="${key##*.}"
-        defaults_write "$domain" "$key_name" string "$value"
-    done
+# Allow the trackpad to remain active even when a USB mouse is connected
+defaults write com.apple.AppleMultitouchTrackpad USBMouseStopsTrackpad -bool false
 
-    echo "Text values set."
-}
+# Set language and text formats
+# defaults write NSGlobalDomain AppleLanguages -array "en-US" "es"
+defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
+defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-# Main script logic
-case "$1" in
-    disable)
-        disable_features
-        ;;
-    enable)
-        enable_features
-        ;;
-    float)
-        set_float_values
-        ;;
-    text)
-        set_text_values
-        ;;
-    *)
-        echo "Usage: $0 {disable|enable|float|text}"
-        exit 1
-        ;;
-esac
+# Stop iTunes from responding to the keyboard media keys
+launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
-# Apply changes
-killall Dock Finder SystemUIServer
+# Increase sound quality for Bluetooth headphones/headsets
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
-echo "All changes applied successfully."
+
+
+
+
+
+
+
+
+
+
+
+# Show all file extensions in Finder
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
