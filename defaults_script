@@ -137,6 +137,7 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGestu
 defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -bool false
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -bool false
 defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool false
+defaults write com.apple.notificationcenterui swipe-disable -bool true
 
 # Adjust trackpad scrolling behaviour
 defaults write com.apple.AppleMultitouchTrackpad TrackpadScroll -bool true
