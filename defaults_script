@@ -86,6 +86,9 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 # Disable the crash reporter
 #defaults write com.apple.CrashReporter DialogType -string "none"
 
+# Disable automatic data gathering in Feedback Assistant
+defaults write com.apple.FeedbackAssistant Autogather -bool false
+
 # Set Help Viewer windows to non-floating mode
 defaults write com.apple.helpviewer DevMode -bool true
 
