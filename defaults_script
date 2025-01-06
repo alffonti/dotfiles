@@ -470,7 +470,7 @@ defaults write com.apple.dock wvous-br-corner -int 0
 ###############################################################################
 
 # Hides the Spotlight icon from the menu bar
-defaults write com.apple.Spotlight NSStatusItem Visible Item-0 -bool false
+defaults write com.apple.Spotlight "NSStatusItem Visible Item-0" -bool false
 
 # Add volumes to Spotlight's exclusion list
 # sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
@@ -506,7 +506,7 @@ sudo mdutil -i on / > /dev/null
 sudo mdutil -E / > /dev/null
 
 ###############################################################################
-# Terminal & iTerm 2                                                          #
+# Terminal                                                                    #
 ###############################################################################
 
 # Only use UTF-8 in Terminal.app
